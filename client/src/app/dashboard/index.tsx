@@ -1,5 +1,6 @@
 import { SidebarProvider } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
+import { Outlet } from "react-router"
 
 export default function Dashboard() {
   return (
@@ -34,6 +35,7 @@ export default function Dashboard() {
           <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
         </div>
       </SidebarInset> */}
+      <Outlet />
     </SidebarProvider>
   )
 }
