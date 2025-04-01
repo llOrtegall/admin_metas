@@ -1,4 +1,4 @@
-import { DB_POWERBI_DATABASE, DB_POWERBI_HOST, DB_POWERBI_PASS, DB_POWERBI_PORT, DB_POWERBI_USER } from '../config/envSchema';
+import { DB_POWERBI_DATABASE, DB_POWERBI_HOST, DB_POWERBI_PASS, DB_POWERBI_PORT, DB_POWERBI_USER, ENVIRONMENT } from '../config/envSchema';
 import { Sequelize } from 'sequelize';
 
 export const PowerBI = new Sequelize(DB_POWERBI_DATABASE, DB_POWERBI_USER, DB_POWERBI_PASS, {
@@ -6,5 +6,5 @@ export const PowerBI = new Sequelize(DB_POWERBI_DATABASE, DB_POWERBI_USER, DB_PO
   port: DB_POWERBI_PORT,
   dialect: 'mysql',
   timezone: '-00:00',
-  logging: false
+  logging: ENVIRONMENT === 'development' ? console.log : false,
 });
