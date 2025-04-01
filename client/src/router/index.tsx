@@ -1,5 +1,6 @@
-import { createBrowserRouter } from "react-router";
-import { Root } from "@/router/Root";
+import { createBrowserRouter } from 'react-router';
+import LogueadosPage from '@/app/logueados';
+import { Root } from '@/router/Root';
 
 export const router = createBrowserRouter([
   {
@@ -9,6 +10,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <div>Welcome to the home page!</div>
+      },
+      {
+        path: '/logueados',
+        element: <LogueadosPage />
       }
     ]
   }

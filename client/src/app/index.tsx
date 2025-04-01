@@ -7,7 +7,7 @@ export default function Layout() {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <SidebarTrigger className="-ml-1 absolute right-0" />
+        <SidebarTrigger className="-ml-1 absolute right-2 top-2" />
         <Outlet />
       </SidebarInset>
     </SidebarProvider>
