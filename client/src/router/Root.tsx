@@ -3,9 +3,9 @@ import LoginPage from '@/app/login';
 import Layout from '@/app';
 
 export function Root() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
 
-  if (isAuthenticated) {
+  if (isAuthenticated || user) {
     return (<Layout />)
   }
   return <LoginPage />
