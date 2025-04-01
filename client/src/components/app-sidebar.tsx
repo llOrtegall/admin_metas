@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from 'react'
 import {
   AudioWaveform,
   BookOpen,
@@ -6,58 +6,58 @@ import {
   GalleryVerticalEnd,
   Settings2,
   SquareTerminal,
-} from "lucide-react"
+} from 'lucide-react'
 
-import { NavMain } from "@/components/nav-main"
-import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
+import { NavMain } from '@/components/nav-main'
+import { NavUser } from '@/components/nav-user'
+import { TeamSwitcher } from '@/components/team-switcher'
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
-} from "@/components/ui/sidebar"
+} from '@/components/ui/sidebar'
 
 // This is sample data.
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    name: 'shadcn',
+    email: 'm@example.com',
+    avatar: '/avatars/shadcn.jpg',
   },
   companys: [
     {
-      name: "Mulitred",
+      name: 'Mulitred',
       logo: GalleryVerticalEnd,
-      plan: "Grupo Empresarial",
+      plan: 'Grupo Empresarial',
     },
     {
-      name: "Servired",
+      name: 'Servired',
       logo: AudioWaveform,
-      plan: "Grupo Empresarial",
+      plan: 'Grupo Empresarial',
     }
   ],
   navMain: [
     {
-      title: "Dashboard",
-      url: "#",
+      title: 'Dashboard',
+      url: '/',
       icon: SquareTerminal,
       isActive: true
     },
     {
-      title: "Sugeridos",
-      url: "#",
+      title: 'Sugeridos',
+      url: '/sugeridos',
       icon: Bot
     },
     {
-      title: "Usuarios Logeados",
-      url: "#",
+      title: 'Usuarios Logeados',
+      url: '/logueados',
       icon: BookOpen
     },
     {
-      title: "Sucursales",
-      url: "#",
+      title: 'Sucursales',
+      url: '/sucursales',
       icon: Settings2
     },
   ]
@@ -65,7 +65,7 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar collapsible='icon' {...props}>
       <SidebarHeader>
         <TeamSwitcher companys={data.companys} />
       </SidebarHeader>

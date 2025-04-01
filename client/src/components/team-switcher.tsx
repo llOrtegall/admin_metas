@@ -15,6 +15,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { useAuth } from "@/auth/AuthProvider"
 
 export function TeamSwitcher({ companys }: {
   companys: {
@@ -25,6 +26,7 @@ export function TeamSwitcher({ companys }: {
 }) {
   const { isMobile } = useSidebar()
   const [activeTeam, setActiveTeam] = React.useState(companys[0])
+  const { setEmpresa } = useAuth()
 
   if (!activeTeam) {
     return null
@@ -61,7 +63,10 @@ export function TeamSwitcher({ companys }: {
             {companys.map((team, index) => (
               <DropdownMenuItem
                 key={team.name}
-                onClick={() => setActiveTeam(team)}
+                onClick={() => {
+                  setActiveTeam(team)
+                  setEmpresa(team.name)
+                }}
                 className="gap-2 p-2"
               >
                 <div className="flex size-6 items-center justify-center rounded-md border">

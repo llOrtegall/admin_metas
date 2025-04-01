@@ -3,8 +3,8 @@ import { RouterProvider } from 'react-router'
 import { createRoot } from 'react-dom/client'
 import { StrictMode } from 'react'
 import { router } from '@/router'
-import './index.css'
 import axios from 'axios'
+import './index.css'
 
 axios.defaults.withCredentials = true
 

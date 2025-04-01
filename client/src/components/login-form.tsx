@@ -1,11 +1,11 @@
+import { APP_NAME, URL_API_LOGIN } from '@/utils/constants'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { useAuth } from '@/auth/AuthProvider'
 import { FormEvent } from 'react'
-import axios from 'axios'
-import { APP_NAME, URL_API_LOGIN } from '@/utils/constants'
 import { toast } from 'sonner'
+import axios from 'axios'
 
 export const LoginForm = () => {
   const { setIsAuthenticated } = useAuth()

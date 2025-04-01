@@ -1,47 +1,60 @@
-import { createContext, useContext, useEffect, useState, Dispatch, ReactNode, SetStateAction } from 'react'
-import { URL_API_LOGIN, APP_NAME } from '@/utils/constants';
+import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
+import { URL_API_LOGIN, APP_NAME } from '@/utils/constants'
+import { IAuthContext } from '@/types/Interfaces'
 import { type User } from '@/types/User'
 import axios from 'axios'
 
-interface IAuthContext {
-  isAuthenticated: boolean
-  user: User | null
-  setUser: Dispatch<SetStateAction<User | null>>
-  setIsAuthenticated: Dispatch<SetStateAction<boolean>>
-  empresa: 'Multired' | 'Servired' | 'MultiredYServired'
-  setEmpresa: Dispatch<SetStateAction<'Multired' | 'Servired' | 'MultiredYServired'>>
-}
-
+// Crear el contexto de autenticación
 const AuthContext = createContext<IAuthContext | undefined>(undefined)
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null)
-  const [empresa, setEmpresa] = useState<'Multired' | 'Servired' | 'MultiredYServired'>('MultiredYServired')
+  const [empresa, setEmpresa] = useState<string>('Multired')
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
-  useEffect(() => {
+  // Función para validar la cookie de sesión
+  const validateCookie = (): boolean => {
     const cookie = document.cookie
+      .split('; ')
+      .find(row => row.startsWith(`${APP_NAME}=`))
+    return !!cookie
+  }
 
-    if (!cookie && cookie.split('=')[0] !== APP_NAME) {
-      setIsAuthenticated(false)
-      setUser(null)
-      return
+  // Función para obtener el perfil del usuario
+  const fetchUserProfile = async () => {
+    try {
+      const response = await axios.get(`${URL_API_LOGIN}/profile`, { params: { app: APP_NAME } })
+      if (response.status === 200) {
+        setIsAuthenticated(true)
+        setUser(response.data)
+      }
+    } catch (error) {
+      console.log(error);
+  
+      /*
+      if (error.response?.status === 401) {
+        setIsAuthenticated(false)
+        setUser(null)
+      } else {
+        console.error('Error al obtener el perfil del usuario:', error)
+      }
+        */
+    }
+  }
+
+  // Efecto para validar la sesión al cargar la aplicación
+  useEffect(() => {
+    const initializeAuth = async () => {
+      if (!validateCookie()) {
+        setIsAuthenticated(false)
+        setUser(null)
+        return
+      }
+      await fetchUserProfile()
     }
 
-    axios.get(`${URL_API_LOGIN}/profile`, { params: { app: APP_NAME } })
-      .then(res => {
-        if (res.status === 200) {
-          setIsAuthenticated(true)
-          setUser(res.data)
-        }
-      })
-      .catch(error => {
-        if (error.response.status === 401) {
-          setIsAuthenticated(false)
-          setUser(null)
-        }
-      })
-  }, [isAuthenticated])
+    initializeAuth()
+  }, []) // Dependencia vacía para ejecutar solo una vez al montar el componente
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, user, setUser, empresa, setEmpresa }}>
@@ -50,11 +63,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   )
 }
 
+// Hook personalizado para usar el contexto de autenticación
 // eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = (): IAuthContext => {
   const context = useContext(AuthContext)
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider')
+    throw new Error('useAuth debe ser usado dentro de un AuthProvider')
   }
   return context
 }

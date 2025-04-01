@@ -1,14 +1,12 @@
 import { useAuth } from '@/auth/AuthProvider';
 import LoginPage from '@/app/login';
-import Dashboard from '@/app/dashboard';
+import Layout from '@/app';
 
 export function Root() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
 
-  console.log(isAuthenticated);
-
-  if (isAuthenticated) {
-    return (<Dashboard />)
+  if (isAuthenticated || user) {
+    return (<Layout />)
   }
   return <LoginPage />
 }
