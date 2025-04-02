@@ -1,6 +1,9 @@
 import { createBrowserRouter } from 'react-router';
-import LogueadosPage from '@/app/logueados';
 import { Root } from '@/router/Root';
+
+// Pages
+import LogueadosPage from '@/app/logueados';
+import SugeridosPage from '@/app/sugeridos';
 
 export const router = createBrowserRouter([
   {
@@ -14,6 +17,10 @@ export const router = createBrowserRouter([
       {
         path: '/logueados',
         element: <LogueadosPage />
+      },
+      {
+        path: '/sugeridos',
+        element: <SugeridosPage />
       }
     ]
   }
