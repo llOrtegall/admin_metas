@@ -79,7 +79,7 @@ export const ButtonExportSugeridos = ({ datos }: { datos: Sugeridos[] }) => {
   }
 
   return (
-    <button className='bg-green-600 px-4 py-2 rounded-md text-white hover:bg-green-500 text-xs 2xl:text-sm 3xl:text-base' onClick={handleDownload}>
+    <button className='bg-green-600 px-4 py-2 rounded-md text-white hover:bg-green-500 text-xs 2xl:text-sm 3xl:text-base cursor-pointer transition ease-in-out' onClick={handleDownload}>
       Exportar a Excel
     </button>
   )
