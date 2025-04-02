@@ -1,4 +1,5 @@
 import { logueosRouter } from './routes/logueos';
+import { sugeridosRouter } from './routes/sugeridos';
 import express from 'express';
 import morgan from 'morgan'
 import cors from 'cors';
@@ -20,6 +21,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api', logueosRouter);
+app.use('/api', sugeridosRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
