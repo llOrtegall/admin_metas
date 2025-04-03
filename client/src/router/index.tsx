@@ -4,6 +4,8 @@ import { Root } from '@/router/Root';
 // Pages
 import LogueadosPage from '@/app/logueados';
 import SugeridosPage from '@/app/sugeridos';
+import SucursalesPage from '@/app/sucursales';
+import InfoSucursal from '@/app/sucursales/info-sucursal';
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +23,14 @@ export const router = createBrowserRouter([
       {
         path: '/sugeridos',
         element: <SugeridosPage />
+      },
+      {
+        path: '/sucursales',
+        element: <SucursalesPage />
+      },
+      {
+        path: '/sucursales/:id',
+        element: <InfoSucursal />
       }
     ]
   }

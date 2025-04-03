@@ -1,0 +1,1 @@
+export const formatPriceCo = (number: number) => `$ ${Intl.NumberFormat("es-CO").format(number).toString()}`
