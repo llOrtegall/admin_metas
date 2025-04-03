@@ -2,11 +2,12 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ButtonExportSugeridos } from '@/components/exports/ExportSugeridos';
 import { useSugeridos } from '@/hooks/useSugeridos';
+import { Spinner } from '@/components/ui/spinner';
 import { formatPriceCo } from '@/utils/funtions';
 import { Input } from '@/components/ui/input';
 import { Label } from '@radix-ui/react-label';
 import { Card } from '@/components/ui/card';
-import { Spinner } from '@/components/ui/spinner';
+import { Info } from 'lucide-react';
 
 export default function SugeridosPage() {
   const {
@@ -35,7 +36,10 @@ export default function SugeridosPage() {
             onChange={(e) => setDate(e.target.value)}
           />
 
-          <Label className='text-sm font-bold'>Filtros</Label>
+          <Label className='text-sm font-bold flex items-center gap-2' title='Se puede buscar por N° Sucursal, Documento o Nombres colocador'>
+            Filtros
+            <Info className='inline-block mr-1' size={16} />
+          </Label>
           <Input
             type='text'
             className='w-[350px]'
@@ -44,7 +48,9 @@ export default function SugeridosPage() {
             onChange={(e) => setFilter(e.target.value)}
           />
 
-          <Select onValueChange={(val) => setCategory(val)}>
+          <Label className='text-sm font-bold'>Categoría</Label>
+
+          <Select onValueChange={(val) => setCategory(val)} defaultValue='TODAS'>
             <SelectTrigger className='w-[180px]'>
               <SelectValue placeholder='Categoría' />
             </SelectTrigger>
@@ -69,17 +75,17 @@ export default function SugeridosPage() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className='text-center text-xs'>ID</TableHead>
-                <TableHead className='text-center text-xs'>Fecha</TableHead>
-                <TableHead className='text-center text-xs'>Documento</TableHead>
-                <TableHead className='text-center text-xs'>Nombres</TableHead>
-                <TableHead className='text-center text-xs'>Sucursal</TableHead>
-                <TableHead className='text-center text-xs'>Nombre Sucursal</TableHead>
-                <TableHead className='text-center text-xs'>Categoría</TableHead>
-                <TableHead className='text-center text-xs'>Producto</TableHead>
-                <TableHead className='text-center text-xs'>Valor Sugerido</TableHead>
-                <TableHead className='text-center text-xs'>Valor Meta</TableHead>
-                <TableHead className='text-center text-xs'>Estado</TableHead>
+                <TableHead className='text-xs'>ID</TableHead>
+                <TableHead className='text-xs'>Fecha</TableHead>
+                <TableHead className='text-xs'>Documento</TableHead>
+                <TableHead className='text-xs'>Nombres</TableHead>
+                <TableHead className='text-xs'>Sucursal</TableHead>
+                <TableHead className='text-xs'>Nombre Sucursal</TableHead>
+                <TableHead className='text-xs'>Categoría</TableHead>
+                <TableHead className='text-xs'>Producto</TableHead>
+                <TableHead className='text-xs'>Valor Sugerido</TableHead>
+                <TableHead className='text-xs'>Valor Meta</TableHead>
+                <TableHead className='text-xs'>Estado</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -112,7 +118,7 @@ export default function SugeridosPage() {
               ) : (
                 loading ? null : (
                   <TableRow>
-                    <TableCell colSpan={12} className='text-center text-xs'>
+                    <TableCell colSpan={12} className='text-xs'>
                       No hay datos disponibles
                     </TableCell>
                   </TableRow>
