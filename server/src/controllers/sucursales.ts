@@ -16,3 +16,20 @@ export const getSucursales = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Error fetching sucursales' });
   }
 }
+
+export const getSucursalByCodigo = async (req: Request, res: Response) => {
+  const { codigo } = req.params;
+
+  try {
+    const result = await Sucursales.findOne({
+      where: {
+        CODIGO: codigo
+      }
+    })
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.error('Error fetching sucursal by codigo:', error);
+    res.status(500).json({ error: 'Error fetching sucursal by codigo' });
+  }
+}
