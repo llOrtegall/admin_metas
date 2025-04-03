@@ -27,6 +27,7 @@ export const getSugeridosQuery = async (fecha: string, empresa: string): Promise
         ON SV.SUCURSAL = S.CODIGO
       WHERE SV.FECHA = COALESCE(:fecha, CURDATE()) 
       AND SV.ZONA = :zona
+      ORDER BY SV.VTA_SUGERIDO DESC
     `
 
     // Validar el valor de "fecha"
