@@ -8,6 +8,7 @@ import { Card } from '@/components/ui/card';
 import { useEffect, useState } from 'react';
 import { Info, Pencil } from 'lucide-react';
 import axios from 'axios';
+import { Link } from 'react-router';
 
 export default function SucursalesPage() {
   const [data, setData] = useState<Sucursales[]>([])
@@ -75,7 +76,9 @@ export default function SucursalesPage() {
                     }
                   </TableCell>
                   <TableCell className='text-xs'>
-                    <Button icon={Pencil} variant={'outline'} className='cursor-pointer hover:bg-yellow-100 transition ease-in-out duration-200'/>
+                    <Link to={`/sucursales/${item.CODIGO}`}>
+                      <Button icon={Pencil} variant={'outline'} className='cursor-pointer hover:bg-yellow-100 transition ease-in-out duration-200'/>
+                    </Link>
                   </TableCell>
                 </TableRow>
               ))
