@@ -1,19 +1,19 @@
-import { Dialog, DialogTrigger } from "@/components/ui/dialog"
-
 import { SucursalInfo } from '@/types/Sucursales';
 import { URL_API_DATA } from '@/utils/constants';
 import { Card } from '@/components/ui/card';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import axios from 'axios';
-import EditSucursal from "./editsucursal";
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { SelectCanal, SelectCelula, SelectSubzona, SelectSupervisor } from '@/components/select-datail-sucursal';
 
 export default function InfoSucursal() {
   const param = useParams();
   const [data, setData] = useState<SucursalInfo>()
 
   useEffect(() => {
-    axios.get(`${URL_API_DATA}/sucursal/${param.id}`)
+    axios.get<SucursalInfo>(`${URL_API_DATA}/sucursal/${param.id}`)
       .then((res) => {
         setData(res.data);
       })
@@ -21,7 +21,6 @@ export default function InfoSucursal() {
         console.error('Error fetching sucursal data:', error);
       })
   }, [param.id]);
-
 
   return (
     <Card className='px-2'>
@@ -43,7 +42,6 @@ export default function InfoSucursal() {
         <p>
           <strong>Supervisor:</strong> {data?.SUPERVISOR}
         </p>
-
         <p>
           <strong>Célula:</strong> {data?.CELULA}
         </p>
@@ -56,12 +54,43 @@ export default function InfoSucursal() {
         <p>
           <strong>Estado:</strong> {data?.ESTADO === 'A' ? 'Activo' : 'Inactivo'}
         </p>
-        <Dialog>
-          <DialogTrigger className="mx-32 cursor-pointer border rounded-md py-1.5 hover:bg-gray-100">Actualizar Información</DialogTrigger>
-          <EditSucursal />
-        </Dialog>
       </section>
 
+      <section className='px-6'>
+        {
+          data && (
+            <form className="grid grid-cols-4 gap-4">
+              <SelectSubzona
+                key='SUBZONA_01'
+                seleccionado={data.SUBZONA}
+              />
+
+              <SelectCelula
+                key='CELULA_01'
+                seleccionado={data.CELULA}
+              />
+
+              <SelectSupervisor
+                key='SUPERVISOR_01'
+                seleccionado={data.SUPERVISOR}
+              />
+
+              <SelectCanal
+                key='CANAL_01'
+                seleccionado={data.CANAL}
+              />
+              <Label>Hora Apertura Día Hábil</Label>
+              <Input type="time" name="HORA_ENTRADA" defaultValue={data.HORA_ENTRADA} />
+              <Label>Hora Cierre Día Hábil</Label>
+              <Input type="time" name="HORA_SALIDA" defaultValue={data.HORA_SALIDA} />
+              <Label>Hora Apertura Fin De Semana</Label>
+              <Input type="time" name="HORA_ENTRADA_FES" defaultValue={data.HORA_ENTRADA_FES} />
+              <Label>Hora Cierre Fin De Semana</Label>
+              <Input type="time" name="HORA_SALIDA_FES" defaultValue={data.HORA_SALIDA_FES} />
+            </form>
+          )
+        }
+      </section>
 
     </Card>
   );
