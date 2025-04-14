@@ -4,8 +4,10 @@ import {
   BookOpen,
   Bot,
   GalleryVerticalEnd,
+  Moon,
   Settings2,
   SquareTerminal,
+  Sun,
 } from 'lucide-react'
 
 import { NavMain } from '@/components/nav-main'
@@ -18,6 +20,8 @@ import {
   SidebarHeader,
   SidebarRail,
 } from '@/components/ui/sidebar'
+import { useTheme } from '@/contexts/theme-provider'
+import { Button } from './ui/button'
 
 // This is sample data.
 const data = {
@@ -64,6 +68,8 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { theme, setTheme } = useTheme()
+
   return (
     <Sidebar collapsible='icon' {...props}>
       <SidebarHeader>
@@ -73,6 +79,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>
+        <Button
+          variant="ghost"
+          className="w-full text-center cursor-pointer border"
+          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+        >
+          {
+            theme === 'dark' ? <Sun className="mr-2 h-4 w-4" /> : <Moon className="mr-2 h-4 w-4" />
+          }
+          Cambiar Theme
+        </Button>
         <NavUser user={data.user} />
       </SidebarFooter>
       <SidebarRail />
