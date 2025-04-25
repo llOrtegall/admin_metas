@@ -22,6 +22,9 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import axios from "axios"
+import { URL_API_LOGIN } from "@/utils/constants"
+import { useAuth } from "@/auth/AuthProvider"
 
 export function NavUser({
   user,
@@ -33,6 +36,20 @@ export function NavUser({
   }
 }) {
   const { isMobile } = useSidebar()
+  const { setUser, setIsAuthenticated } = useAuth()
+
+  const handleLogout = () => {
+    axios.get(`${URL_API_LOGIN}/logout`)
+      .then(res => {
+        if (res.status === 200) {
+          setUser(null)
+          setIsAuthenticated(false)
+        }
+      })
+      .catch(err => {
+        console.error("Error al cerrar sesión:", err)
+      })
+  }
 
   return (
     <SidebarMenu>
@@ -73,7 +90,7 @@ export function NavUser({
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer" onClick={handleLogout}>
               <LogOut />
               Log out
             </DropdownMenuItem>

@@ -40,12 +40,10 @@ function Button({
   variant,
   size,
   asChild = false,
-  icon: Icon,
   ...props
 }: React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean
-    icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>
   }) {
   const Comp = asChild ? Slot : "button"
 
@@ -54,11 +52,8 @@ function Button({
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
-    >
-      {Icon && <Icon className="w-4 h-4" />} {/* Renderiza el ícono si se proporciona */}
-      {props.children}
-    </Comp>
-  );
+    />
+  )
 }
 
 export { Button, buttonVariants }
