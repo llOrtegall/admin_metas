@@ -1,12 +1,12 @@
+import { SelectCanal, SelectCelula, SelectSubzona, SelectSupervisor } from '@/components/select-datail-sucursal';
 import { SucursalInfo } from '@/types/Sucursales';
 import { URL_API_DATA } from '@/utils/constants';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import axios from 'axios';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { SelectCanal, SelectCelula, SelectSubzona, SelectSupervisor } from '@/components/select-datail-sucursal';
 
 export default function InfoSucursal() {
   const param = useParams();
@@ -24,7 +24,7 @@ export default function InfoSucursal() {
 
   return (
     <Card className='px-2'>
-      <h1 className="text-xl font-bold px-6 py-2 text-center">Información Detallada Sucursal - N° {data?.CODIGO}</h1>
+      <h1 className="text-xl font-bold px-6 py-2 text-center uppercase">Información Detallada Sucursal - N° {data?.CODIGO}</h1>
 
       <section className="px-6 grid grid-cols-3 gap-2">
         <p>

@@ -19,6 +19,7 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
+  useSidebar,
 } from '@/components/ui/sidebar'
 import { useTheme } from '@/contexts/theme-provider'
 import { Button } from './ui/button'
@@ -69,6 +70,7 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { theme, setTheme } = useTheme()
+  const { open } = useSidebar()
 
   return (
     <Sidebar collapsible='icon' {...props}>
@@ -81,15 +83,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarFooter>
         <Button
           variant="ghost"
-          className="w-full text-center cursor-pointer border"
+          className="flex items-center justify-center gap-2" // Asegura que el contenido esté centrado
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
         >
-          {
-            theme === 'dark' ? <Sun className="mr-2 h-4 w-4" /> : <Moon className="mr-2 h-4 w-4" />
-          }
-          Cambiar Theme
+          {theme === 'dark' ? <Sun className="size-4" /> : <Moon className="size-4" />}
+          {open && <span>Cambiar Tema</span>}
         </Button>
-        <NavUser user={data.user} />
+        <NavUser />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
