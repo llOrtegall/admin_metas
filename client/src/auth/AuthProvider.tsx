@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
 
   useEffect(() => {
-    axios.get(`${URL_API_LOGIN}/profile`)
+    axios.get<User>(`${URL_API_LOGIN}/profile`)
      .then( res => {
         if (res.status === 200) {
           setUser(res.data)
