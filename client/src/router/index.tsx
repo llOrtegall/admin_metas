@@ -6,6 +6,7 @@ import LogueadosPage from '@/app/logueados';
 import SugeridosPage from '@/app/sugeridos';
 import SucursalesPage from '@/app/sucursales';
 import InfoSucursal from '@/app/sucursales/info-sucursal';
+import Dashboard from '@/app/dashboard';
 
 export const router = createBrowserRouter([
   {
@@ -14,7 +15,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <div>Welcome to the home page!</div>
+        element: <Dashboard />
       },
       {
         path: '/logueados',
