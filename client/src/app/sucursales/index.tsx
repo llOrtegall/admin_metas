@@ -77,7 +77,9 @@ export default function SucursalesPage() {
                   </TableCell>
                   <TableCell className='text-xs'>
                     <Link to={`/sucursales/${item.CODIGO}`}>
-                      <Button icon={Pencil} variant={'outline'} className='cursor-pointer hover:bg-yellow-100 transition ease-in-out duration-200'/>
+                      <Button variant={'outline'} className='cursor-pointer hover:bg-yellow-100 transition ease-in-out duration-200'>
+                        <Pencil className='mr-2' size={16} /> Editar
+                      </Button>
                     </Link>
                   </TableCell>
                 </TableRow>
