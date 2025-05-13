@@ -12,7 +12,7 @@ services:
       - red-gane-int
 
   api_adm_metas:
-    build: ./api
+    build: ./server
     image: api_adm_metas:v2.0
     container_name: api_adm_metas
     environment:
