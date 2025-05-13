@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { Info, Pencil } from 'lucide-react';
 import axios from 'axios';
 import { Link } from 'react-router';
+import { Badge } from '@/components/ui/badge';
 
 export default function SucursalesPage() {
   const [data, setData] = useState<Sucursales[]>([])
@@ -72,7 +73,7 @@ export default function SucursalesPage() {
                   <TableCell className='text-xs'>{item.SUPERVISOR}</TableCell>
                   <TableCell className='text-xs'>
                     {
-                      item.ESTADO === 'A' ? 'Activo' : item.ESTADO === 'I' ? 'Inactivo' : 'No Asignado'
+                      item.ESTADO === 'A' ? <Badge variant={'success'}>Activo</Badge> : item.ESTADO === 'I' ? <Badge variant={'destructive'}>Inactivo</Badge> : 'No Asignado'
                     }
                   </TableCell>
                   <TableCell className='text-xs'>
