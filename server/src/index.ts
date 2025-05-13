@@ -1,5 +1,6 @@
 import { routerSucursales } from './routes/sucursales';
 import { sugeridosRouter } from './routes/sugeridos';
+import { ULR_CLIENT_CORS } from './config/envSchema';
 import { logueosRouter } from './routes/logueos';
 import express from 'express';
 import morgan from 'morgan'
@@ -11,7 +12,7 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(morgan('dev'))
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: ULR_CLIENT_CORS,
   credentials: true,
 }))
 
