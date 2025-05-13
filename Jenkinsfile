@@ -4,7 +4,6 @@ pipeline {
   tools { nodejs 'node-v22' }
 
   environment { 
-    ENV_METAS_ADM_CLIENT = credentials('ENV_METAS_ADM_CLIENT')
     ENV_METAS_ADM_API = credentials('ENV_METAS_ADM_API')
   }
     
@@ -12,9 +11,7 @@ pipeline {
     stage('Copy .env files') {
       steps {
         script {
-            def env_client = readFile(ENV_METAS_ADM_CLIENT)
             def env_api = readFile(ENV_METAS_ADM_API)
-            writeFile file: './client/.env', text: env_client
             writeFile file: './api/.env', text: env_api
           }
         }
