@@ -9,6 +9,7 @@ const envSchema = z.object({
   ENVIRONMENT: z.enum(["development", "production"], {
     errorMap: () => ({ message: "ENVIRONMENT debe ser development o production" })
   }),
+  ULR_CLIENT_CORS: z.string().min(2, "Url client cors requerido"),
 })
 
 const { success, data, error } = envSchema.safeParse(process.env);
@@ -24,5 +25,6 @@ export const {
   DB_POWERBI_PASS,
   DB_POWERBI_PORT,
   DB_POWERBI_USER,
-  ENVIRONMENT
+  ENVIRONMENT,
+  ULR_CLIENT_CORS
 } = data
