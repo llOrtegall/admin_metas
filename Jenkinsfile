@@ -12,7 +12,7 @@ pipeline {
       steps {
         script {
             def env_api = readFile(ENV_METAS_ADM_API)
-            writeFile file: './api/.env', text: env_api
+            writeFile file: './server/.env', text: env_api
           }
         }
       }
