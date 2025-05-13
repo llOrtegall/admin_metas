@@ -34,4 +34,5 @@ export interface SucursalInfo extends Sucursales {
   HORAS_ORDINARIAS: string;
   HORAS_FESTIVAS: string;
   ESTADO: Estado;
+  CATEGORIA?: string;
 }

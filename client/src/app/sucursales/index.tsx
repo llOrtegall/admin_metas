@@ -1,6 +1,6 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { URL_API_DATA } from '@/utils/constants';
-import { Sucursales } from '@/types/Sucursales';
+import { SucursalInfo } from '@/types/Sucursales';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
@@ -10,9 +10,11 @@ import { Info, Pencil } from 'lucide-react';
 import axios from 'axios';
 import { Link } from 'react-router';
 import { Badge } from '@/components/ui/badge';
+import { ButtonExportSucursales } from '@/components/exports/ExportSucursales';
 
 export default function SucursalesPage() {
-  const [data, setData] = useState<Sucursales[]>([])
+  const [data, setData] = useState<SucursalInfo[]>([])
+  const [filter, setFilter] = useState('')
 
   useEffect(() => {
     axios.get(`${URL_API_DATA}/sucursales`)
@@ -24,6 +26,9 @@ export default function SucursalesPage() {
       })
   }, [])
 
+  const dataFiltered = data.filter(item => filter ? item.NOMBRE.toLocaleLowerCase().includes(filter.toLocaleLowerCase()) || item.CODIGO.toLocaleLowerCase().includes(filter.toLocaleLowerCase()) : data)
+
+
   return (
     <section>
       <Card className='px-4'>
@@ -31,8 +36,8 @@ export default function SucursalesPage() {
         <h1 className='text-lg font-bold uppercase'>Información Sucursales</h1>
 
         <article className='flex items-center gap-4'>
-          <Label className='text-sm font-bold flex items-center gap-2' 
-          title='Se puede buscar por N° Sucursal o Nombres de la Sucursal'>
+          <Label className='text-sm font-bold flex items-center gap-2'
+            title='Se puede buscar por N° Sucursal o Nombres de la Sucursal'>
             Filtros
             <Info className='inline-block mr-1' size={16} />
           </Label>
@@ -40,8 +45,10 @@ export default function SucursalesPage() {
             type='text'
             className='w-[350px]'
             placeholder='39825  -  Andre Carr*** **** '
+            onChange={(e) => setFilter(e.target.value)}
           />
 
+          <ButtonExportSucursales datos={dataFiltered} />
         </article>
 
         <Table>
@@ -59,7 +66,7 @@ export default function SucursalesPage() {
           </TableHeader>
           <TableBody>
             {
-              data.map((item, index) => (
+              dataFiltered.map((item, index) => (
                 <TableRow key={index + 1}>
                   <TableCell className='text-xs'>
                     {
