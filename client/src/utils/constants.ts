@@ -1,5 +1,5 @@
-export const URL_API_LOGIN = import.meta.env.VITE_URL_API_LOGIN || '/api_login'
-export const URL_API_DATA = import.meta.env.VITE_URL_API_DATA || '/api_data'
+export const URL_API_LOGIN = import.meta.env.VITE_URL_API_LOGIN ?? '/api_login'
+export const URL_API_DATA = import.meta.env.VITE_URL_API_DATA ?? '/api_data'
 
 export const dataSelect = [
   { label: 'ZONA CUMBRE', value: 'ZONA CUMBRE' },
