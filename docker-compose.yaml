@@ -8,6 +8,8 @@ services:
     volumes:
       - ./config:/etc/nginx/conf.d
       - ./client/dist:/usr/share/nginx/html
+    depends_on:
+      - api_adm_metas
     networks:
       - red-gane-int
 
