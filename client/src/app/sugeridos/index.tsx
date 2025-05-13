@@ -9,6 +9,7 @@ import { Label } from '@radix-ui/react-label';
 import { Card } from '@/components/ui/card';
 import { Info } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 
 const RenderEstadoComponent = ({ estado }: { estado: string }) => {
   switch (estado) {
@@ -33,6 +34,7 @@ export default function SugeridosPage() {
     setCategory,
     setFilterEstado,
     loading,
+    resetFilters,
     error
   } = useSugeridos();
 
@@ -96,6 +98,10 @@ export default function SugeridosPage() {
               <SelectItem value='SUPERADO'>Superado</SelectItem>
             </SelectContent>
           </Select>
+
+          <Button onClick={resetFilters} className='ml-2'>
+            Resetear Filtros
+          </Button>
 
           <ButtonExportSugeridos datos={filteredData} />
         </article>

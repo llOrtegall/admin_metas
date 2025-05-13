@@ -9,14 +9,19 @@ export function useSugeridos(initialDate: string = '', initialEmpresa: string = 
   const [filter, setFilter] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const [filterEstado, setFilterEstado] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false); // Estado de carga
-  const [error, setError] = useState<string | null>(null); // Estado de error
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
-  // Obtener datos desde la API
+  const resetFilters = () => {
+    setFilter('');
+    setCategory('');
+    setFilterEstado('');
+  };
+
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true); // Inicia la carga
-      setError(null); // Resetea el error
+      setLoading(true);
+      setError(null);
       try {
         const response = await axios.get(`${URL_API_DATA}/sugeridos`, {
           params: { fecha: date, empresa: initialEmpresa },
@@ -26,32 +31,36 @@ export function useSugeridos(initialDate: string = '', initialEmpresa: string = 
         console.error("Error fetching data:", err);
         setError("Error al cargar los datos. Por favor, inténtalo de nuevo.");
       } finally {
-        setLoading(false); // Finaliza la carga
+        setLoading(false);
       }
     };
-
     fetchData();
   }, [date, initialEmpresa]);
 
-  // Memorizar los datos filtrados
+  // Optimización del filtrado
   const filteredData = useMemo(() => {
+    const categoryLower = category.toLowerCase();
+    const filterLower = filter.toLowerCase();
+    const filterEstadoLower = filterEstado.toLowerCase();
+
     return data.filter((item) => {
-      // Convertir valores a lowercase para evitar problemas de comparación
-      const categoryLower = category.toLowerCase();
-      const filterLower = filter.toLowerCase();
-      const filterEstadoLower = filterEstado.toLowerCase();
-
-      console.log(filterEstadoLower);
-
+      // Filtro por categoría
       const matchesCategory =
         categoryLower === 'todas' || !category || item.CATEGORIA.toLowerCase() === categoryLower;
-      const matchesDocument = !filter || item.DOCUMENTO.toLowerCase().includes(filterLower);
-      const matchesSucursal = !filter || item.SUCURSAL.toLowerCase().includes(filterLower);
-      const matchesNombre = !filter || item.NOMBRES.toLowerCase().includes(filterLower);
-      const matchesEstado = !filter || item.ESTADO.toLowerCase().includes(filterEstadoLower);
 
-      // Si la categoría es 'TODAS', solo considera los filtros de documento, sucursal o nombre
-      return matchesCategory && (matchesDocument || matchesSucursal || matchesNombre || matchesEstado);
+      // Filtro general (documento, sucursal, nombres)
+      const matchesGeneral =
+        !filter ||
+        item.DOCUMENTO.toLowerCase().includes(filterLower) ||
+        item.SUCURSAL.toLowerCase().includes(filterLower) ||
+        item.NOMBRES.toLowerCase().includes(filterLower);
+
+      // Filtro por estado
+      const matchesEstado =
+        !filterEstado || item.ESTADO.toLowerCase().includes(filterEstadoLower);
+
+      // Todos los filtros deben cumplirse
+      return matchesCategory && matchesGeneral && matchesEstado;
     });
   }, [data, category, filter, filterEstado]);
 
@@ -66,6 +75,7 @@ export function useSugeridos(initialDate: string = '', initialEmpresa: string = 
     setCategory,
     filterEstado,
     setFilterEstado,
+    resetFilters,
     loading,
     error
   };
