@@ -7,7 +7,7 @@ import morgan from 'morgan'
 import cors from 'cors';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 80;
 
 app.use(express.json());
 app.use(morgan('dev'))
