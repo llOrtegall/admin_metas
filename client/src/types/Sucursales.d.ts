@@ -20,6 +20,7 @@ export interface Sucursales {
   ESTADO:     Estado;
 }
 
+
 export interface SucursalInfo extends Sucursales {
   TIPO: string;
   DISPOSITIVO: string;
@@ -30,7 +31,8 @@ export interface SucursalInfo extends Sucursales {
   HORA_SALIDA_FES: string;
   SUBZONA: string;
   CELULA: string;
-  HORAS_ORDINATIAS: string;
+  HORAS_ORDINARIAS: string;
   HORAS_FESTIVAS: string;
   ESTADO: Estado;
+  CATEGORIA?: string;
 }

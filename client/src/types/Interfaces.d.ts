@@ -8,3 +8,13 @@ export interface IAuthContext {
   empresa: string
   setEmpresa: Dispatch<SetStateAction<string>>
 }
+
+export interface Logueados {
+  SUCURSAL: number;
+  DOCUMENTO: string;
+  NOMBRES: string;
+  NOMBRECARGO: string;
+  FECHA_LOGIN: string;
+  FECHACREATE: string;
+  FECHAUPDATE: string;
+}

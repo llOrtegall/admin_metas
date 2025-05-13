@@ -8,30 +8,23 @@ import {
 } from '@/components/ui/table'
 
 import { URL_API_DATA } from '@/utils/constants';
-import { Button } from '@/components/ui/button';
+import { Logueados } from '@/types/Interfaces';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
+import { useAuth } from '@/auth/AuthProvider';
 import { Card } from '@/components/ui/card';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
-export interface Logueados {
-  SUCURSAL: number;
-  DOCUMENTO: string;
-  NOMBRES: string;
-  NOMBRECARGO: string;
-  FECHA_LOGIN: string;
-  FECHACREATE: string;
-  FECHAUPDATE: string;
-}
+import { ButtonExportLogueados } from '@/components/exports/ExportLogueados';
 
 export default function LogueadosPage() {
   const [data, setData] = useState<Logueados[] | null>(null);
   const [filter, setFilter] = useState('');
   const [date, setDate] = useState('');
+  const { empresa } = useAuth();
 
   useEffect(() => {
-    axios.get(`${URL_API_DATA}/logueos`, { params: { fecha: date, empresa: 'Multired' } })
+    axios.get(`${URL_API_DATA}/logueos`, { params: { fecha: date, empresa: empresa } })
       .then((response) => {
         setData(response.data);
       })
@@ -39,7 +32,7 @@ export default function LogueadosPage() {
         console.error('Error fetching data:', error);
       }
       );
-  }, [date]);
+  }, [date, empresa]);
 
   return (
     <section>
@@ -67,10 +60,7 @@ export default function LogueadosPage() {
             onChange={(e) => setDate(e.target.value)}
           />
 
-          <Button className='p-2 mb-2 cursor-pointer hover:bg-green-200 transition-all duration-300 ease-in-out mt-2'
-            variant='secondary'>
-            Exportar a Excel
-          </Button>
+          <ButtonExportLogueados datos={data || []} />
         </article>
 
         <section>

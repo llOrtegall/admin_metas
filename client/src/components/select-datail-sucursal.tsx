@@ -21,9 +21,9 @@ const GenericSelect = ({ name, seleccionado, funSelect, label }: SelectComponent
   const data = selectDataMap[name];
 
   return (
-    <div>
-      <Label htmlFor={name}>{label}</Label>
-      <Select name={name} value={seleccionado} onValueChange={funSelect}>
+    <div className='flex items-center gap-2'>
+      <Label htmlFor={name} className='pt-1.5'>{label}</Label>
+      <Select name={name} value={seleccionado} onValueChange={funSelect} >
         <SelectTrigger className='mt-2'>
           <SelectValue placeholder={'Seleccionar'} />
         </SelectTrigger>

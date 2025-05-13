@@ -1,11 +1,6 @@
 import { getAllLogueos } from '../services/logueos';
+import { schemaParams } from '../schemas/params';
 import { Request, Response } from "express";
-import { z } from 'zod';
-
-const schemaParams = z.object({
-  fecha: z.string().optional().default(''),
-  empresa: z.string().min(3).max(16)
-})
 
 export const getLogueados = async (req: Request, res: Response) => {
   try {

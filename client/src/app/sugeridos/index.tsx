@@ -8,8 +8,28 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@radix-ui/react-label';
 import { Card } from '@/components/ui/card';
 import { Info } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { useAuth } from '@/auth/AuthProvider';
+
+const RenderEstadoComponent = ({ estado }: { estado: string }) => {
+  switch (estado) {
+    case 'INICIAL':
+      return <Badge variant={'destructive'}>Iniciado</Badge>
+    case 'ENPROGRESO':
+      return <Badge variant={'secondary'}>En Progreso</Badge>
+    case 'SUPERADO':
+      return <Badge variant={'success'}>Superado</Badge>
+    default:
+      return <Badge variant={'default'}>No Asignado</Badge>
+  }
+}
 
 export default function SugeridosPage() {
+  const { empresa } = useAuth()
+
+  console.log(empresa)
+
   const {
     filteredData,
     date,
@@ -17,9 +37,11 @@ export default function SugeridosPage() {
     filter,
     setFilter,
     setCategory,
+    setFilterEstado,
     loading,
+    resetFilters,
     error
-  } = useSugeridos();
+  } = useSugeridos(empresa);
 
   return (
     <section>
@@ -68,6 +90,24 @@ export default function SugeridosPage() {
             </SelectContent>
           </Select>
 
+          <Label className='text-sm font-bold'>Estado</Label>
+
+          <Select onValueChange={(val) => setFilterEstado(val)} defaultValue='TODAS'>
+            <SelectTrigger className='w-[180px]'>
+              <SelectValue placeholder='Estado' />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value='TODAS'>Todas</SelectItem>
+              <SelectItem value='INICIAL'>Iniciado</SelectItem>
+              <SelectItem value='ENPROGRESO'>En Progreso</SelectItem>
+              <SelectItem value='SUPERADO'>Superado</SelectItem>
+            </SelectContent>
+          </Select>
+
+          <Button onClick={resetFilters} className='ml-2'>
+            Resetear Filtros
+          </Button>
+
           <ButtonExportSugeridos datos={filteredData} />
         </article>
 
@@ -112,7 +152,9 @@ export default function SugeridosPage() {
                     <TableCell className='text-xs'>{item.PRODUCTO}</TableCell>
                     <TableCell className='text-xs'>{formatPriceCo(item.VALOR_SUGERIDO)}</TableCell>
                     <TableCell className='text-xs'>{formatPriceCo(item.VALOR_META)}</TableCell>
-                    <TableCell className='text-xs'>{item.ESTADO}</TableCell>
+                    <TableCell className='text-xs'>
+                      {<RenderEstadoComponent estado={item.ESTADO} key={item.SUCURSAL} />}
+                    </TableCell>
                   </TableRow>
                 ))
               ) : (
