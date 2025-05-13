@@ -1,0 +1,26 @@
+services: 
+  web_adm_metas:
+    image: nginx:stable-alpine3.21-perl
+    container_name: web_adm_metas
+    restart: always
+    environment:
+      TZ: 'America/Bogota'
+    volumes:
+      - ./config:/etc/nginx/conf.d
+      - ./client/dist:/usr/share/nginx/html
+    networks:
+      - red-gane-int
+
+  api_adm_metas:
+    build: ./api
+    image: api_adm_metas:v2.0
+    container_name: api_adm_metas
+    environment:
+      TZ: 'America/Bogota'
+    restart: always
+    networks:
+      - red-gane-int
+      
+networks:
+  red-gane-int:
+    external: true
