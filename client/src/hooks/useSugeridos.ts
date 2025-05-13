@@ -8,6 +8,7 @@ export function useSugeridos(initialDate: string = '', initialEmpresa: string = 
   const [date, setDate] = useState<string>(initialDate);
   const [filter, setFilter] = useState<string>('');
   const [category, setCategory] = useState<string>('');
+  const [filterEstado, setFilterEstado] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false); // Estado de carga
   const [error, setError] = useState<string | null>(null); // Estado de error
 
@@ -38,17 +39,21 @@ export function useSugeridos(initialDate: string = '', initialEmpresa: string = 
       // Convertir valores a lowercase para evitar problemas de comparación
       const categoryLower = category.toLowerCase();
       const filterLower = filter.toLowerCase();
+      const filterEstadoLower = filterEstado.toLowerCase();
+
+      console.log(filterEstadoLower);
 
       const matchesCategory =
         categoryLower === 'todas' || !category || item.CATEGORIA.toLowerCase() === categoryLower;
       const matchesDocument = !filter || item.DOCUMENTO.toLowerCase().includes(filterLower);
       const matchesSucursal = !filter || item.SUCURSAL.toLowerCase().includes(filterLower);
       const matchesNombre = !filter || item.NOMBRES.toLowerCase().includes(filterLower);
+      const matchesEstado = !filter || item.ESTADO.toLowerCase().includes(filterEstadoLower);
 
       // Si la categoría es 'TODAS', solo considera los filtros de documento, sucursal o nombre
-      return matchesCategory && (matchesDocument || matchesSucursal || matchesNombre);
+      return matchesCategory && (matchesDocument || matchesSucursal || matchesNombre || matchesEstado);
     });
-  }, [data, category, filter]);
+  }, [data, category, filter, filterEstado]);
 
   return {
     data,
@@ -59,6 +64,8 @@ export function useSugeridos(initialDate: string = '', initialEmpresa: string = 
     setFilter,
     category,
     setCategory,
+    filterEstado,
+    setFilterEstado,
     loading,
     error
   };
