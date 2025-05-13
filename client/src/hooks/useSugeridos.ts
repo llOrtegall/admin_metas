@@ -3,9 +3,9 @@ import { URL_API_DATA } from '@/utils/constants';
 import { Sugeridos } from '@/types/Sugeridos';
 import axios from 'axios';
 
-export function useSugeridos(initialDate: string = '', initialEmpresa: string = 'Multired') {
+export function useSugeridos(initialEmpresa: string = 'Multired') {
   const [data, setData] = useState<Sugeridos[]>([]);
-  const [date, setDate] = useState<string>(initialDate);
+  const [date, setDate] = useState<string>('');
   const [filter, setFilter] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const [filterEstado, setFilterEstado] = useState<string>('');

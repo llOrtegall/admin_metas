@@ -1,11 +1,6 @@
 import { getSugeridosQuery } from '../services/sugeridos';
+import { schemaParams } from '../schemas/params';
 import { Request, Response } from 'express';
-import { z } from 'zod';
-
-const schemaParams = z.object({
-  fecha: z.string().optional().default(''),
-  empresa: z.string().min(3).max(16)
-})
 
 export const getSugeridos = async (req: Request, res: Response) => {
   const params = req.query

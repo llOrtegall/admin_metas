@@ -10,6 +10,7 @@ import { Card } from '@/components/ui/card';
 import { Info } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/auth/AuthProvider';
 
 const RenderEstadoComponent = ({ estado }: { estado: string }) => {
   switch (estado) {
@@ -25,6 +26,10 @@ const RenderEstadoComponent = ({ estado }: { estado: string }) => {
 }
 
 export default function SugeridosPage() {
+  const { empresa } = useAuth()
+
+  console.log(empresa)
+
   const {
     filteredData,
     date,
@@ -36,7 +41,7 @@ export default function SugeridosPage() {
     loading,
     resetFilters,
     error
-  } = useSugeridos();
+  } = useSugeridos(empresa);
 
   return (
     <section>

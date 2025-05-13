@@ -1,30 +1,32 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { ButtonExportSucursales } from '@/components/exports/ExportSucursales';
 import { URL_API_DATA } from '@/utils/constants';
 import { SucursalInfo } from '@/types/Sucursales';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
+import { useAuth } from '@/auth/AuthProvider';
+import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { useEffect, useState } from 'react';
 import { Info, Pencil } from 'lucide-react';
-import axios from 'axios';
 import { Link } from 'react-router';
-import { Badge } from '@/components/ui/badge';
-import { ButtonExportSucursales } from '@/components/exports/ExportSucursales';
+import axios from 'axios';
 
 export default function SucursalesPage() {
   const [data, setData] = useState<SucursalInfo[]>([])
   const [filter, setFilter] = useState('')
+  const { empresa } = useAuth()
 
   useEffect(() => {
-    axios.get(`${URL_API_DATA}/sucursales`)
+    axios.get(`${URL_API_DATA}/sucursales`, { params: { empresa } })
       .then((res) => {
         setData(res.data)
       })
       .catch((error) => {
         console.error('Error fetching data:', error)
       })
-  }, [])
+  }, [empresa])
 
   const dataFiltered = data.filter(item => filter ? item.NOMBRE.toLocaleLowerCase().includes(filter.toLocaleLowerCase()) || item.CODIGO.toLocaleLowerCase().includes(filter.toLocaleLowerCase()) : data)
 

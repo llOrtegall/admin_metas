@@ -1,9 +1,20 @@
 import { Sucursales } from '../models/sucursales.model';
+import { schemaParams } from '../schemas/params';
 import { Request, Response } from 'express';
 
 export const getSucursales = async (req: Request, res: Response) => {
+  const params = req.query
+
+  const { success, data, error } = schemaParams.safeParse(params);
+
+  if (!success) {
+    res.status(400).json({ message: error.format(), });
+    return;
+  }
+  const ZONA = data.empresa === 'Multired' ? 39627 : 39628;
+
   try {
-    const results = await Sucursales.findAll({ where: { ZONA: '39627' } })
+    const results = await Sucursales.findAll({ where: { ZONA: ZONA } })
 
     res.status(200).json(results);
   } catch (error) {

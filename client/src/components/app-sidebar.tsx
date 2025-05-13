@@ -33,7 +33,7 @@ const data = {
   },
   companys: [
     {
-      name: 'Mulitred',
+      name: 'Multired',
       logo: GalleryVerticalEnd,
       plan: 'Grupo Empresarial',
     },
