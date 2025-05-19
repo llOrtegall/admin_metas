@@ -14,10 +14,11 @@ export default function Transacciones() {
   return (
     <Card>
       <CardHeader>
-        <h1>Transacciones</h1>
+        <h1 className="font-semibold text-2xl">Transacciones</h1>
+        <p className="text-sm text-muted-foreground">Transacciones se actualizan automaticamente cada 5 minutos o puedes recargar manualmente presionando la opción "Recargar"</p>
       </CardHeader>
 
-      <CardContent>
+      <CardContent className="flex flex-col">
         <TableTransacciones />
       </CardContent>
     </Card>
