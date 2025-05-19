@@ -1,5 +1,7 @@
 import { Model, DataTypes, InferAttributes, InferCreationAttributes } from 'sequelize';
 import { PowerBI } from '../connections/powerbi'
+import { Sucursales } from './sucursales.model';
+import { Vendedores } from './vendedores.model';
 
 class Transacciones extends Model<InferAttributes<Transacciones>, InferCreationAttributes<Transacciones>> {
   declare IDTRANSACCION?: number;
@@ -35,6 +37,16 @@ Transacciones.init({
   timestamps: true,
   createdAt: 'FECHACREATE',
   updatedAt: 'FECHAUPDATE'
+})
+
+Transacciones.hasOne(Sucursales, {
+  foreignKey: 'CODIGO',
+  sourceKey: 'SUCURSAL'
+})
+
+Transacciones.hasOne(Vendedores, {
+  foreignKey: 'DOCUMENTO',
+  sourceKey: 'LOGINSOLICITUD'
 })
 
 export { Transacciones }

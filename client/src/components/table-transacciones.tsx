@@ -35,7 +35,7 @@ export function TableTransacciones() {
         {data.map((item) => (
           <TableRow key={item.IDTRANSACCION}>
             <TableCell className="font-medium">{item.IDTRANSACCION}</TableCell>
-            <TableCell>{item.FECHACREATE.split('T')[0].split('-').reverse().join('/') + ' ' + item.FECHACREATE.split('T')[1].slice(0, 8)}</TableCell>
+            <TableCell>{item.FECHACREATE}</TableCell>
             <TableCell>{item.CONCEPTO}</TableCell>
             <TableCell>{item.ESTADO}</TableCell>
             <TableCell>
