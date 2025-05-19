@@ -18,3 +18,20 @@ export interface Logueados {
   FECHACREATE: string;
   FECHAUPDATE: string;
 }
+
+export interface Transacciones {
+  CONCEPTO: string;
+  ESTADO: string;
+  FECHA: string;
+  FECHACREATE: string;
+  FECHAUPDATE: string;
+  IDTRANSACCION: number;
+  LOGINAUTORIZA: string | null;
+  LOGINSOLICITUD: string;
+  NOTA: string | null;
+  SUCURSAL: string;
+  TERCERO: string;
+  VALOR: number;
+  VERSION: string | null;
+}
+  
