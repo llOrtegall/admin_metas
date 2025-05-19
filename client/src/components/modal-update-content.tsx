@@ -11,10 +11,11 @@ import axios from 'axios';
 
 interface PropsDialog {
   funClose: (openDialog: boolean) => void;
+  funReload: () => void;
   idTrans: number;
 }
 
-function LazyDialogContent({ funClose, idTrans }: PropsDialog) {
+function LazyDialogContent({ funClose, funReload, idTrans }: PropsDialog) {
   const [reporte, setReporte] = useState<ReporteTransaccion | null>(null)
   const [loading, setLoading] = useState(false)
 
@@ -41,6 +42,7 @@ function LazyDialogContent({ funClose, idTrans }: PropsDialog) {
         if(res.status === 200) {
           toast.success('Transacción rechazada exitosamente')
           funClose(false)
+          funReload()
           setNota('')
         }
       })

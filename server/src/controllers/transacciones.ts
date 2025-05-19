@@ -7,7 +7,7 @@ import { fn } from 'sequelize';
 export const getAllReports = async (req: Request, res: Response) => {
   try {
     const reports = await Transacciones.findAll({
-      attributes: ['IDTRANSACCION', 'FECHACREATE', 'CONCEPTO', 'ESTADO', 'VALOR'],
+      attributes: ['IDTRANSACCION', 'FECHACREATE', 'FECHAUPDATE', 'CONCEPTO', 'ESTADO', 'VALOR'],
       where: {
         FECHA: fn('CURDATE')
       },

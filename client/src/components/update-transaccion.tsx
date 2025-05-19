@@ -5,11 +5,12 @@ import { Settings } from 'lucide-react';
 
 const LazyDialogContent = lazy(() => import('@/components/modal-update-content'));
 
-export const DialogUpdateTransaccion = ({ idTrans }: { idTrans: number }) => {
+export const DialogUpdateTransaccion = ({ idTrans, funReload }: { idTrans: number, funReload: () => void }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpenChange = (openDialog: boolean) => {
     setIsOpen(openDialog)
+    funReload()
   }
 
   return (
@@ -20,7 +21,7 @@ export const DialogUpdateTransaccion = ({ idTrans }: { idTrans: number }) => {
       </DialogTrigger>
       {isOpen && (
         <Suspense fallback={<Loading />}>
-          <LazyDialogContent funClose={handleOpenChange} idTrans={idTrans} />
+          <LazyDialogContent funClose={handleOpenChange} idTrans={idTrans} funReload={funReload} />
         </Suspense>
       )}
     </Dialog>

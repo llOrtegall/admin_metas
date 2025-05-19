@@ -8,16 +8,21 @@ import { DialogUpdateTransaccion } from "./update-transaccion"
 
 export function TableTransacciones() {
   const [data, setData] = useState<Transacciones[]>([])
+  const [reload, setReload] = useState(false)
+
+  const handleReload = () => {
+    setReload(!reload)
+  }
 
   useEffect(() => {
     axios.get(`${URL_API_DATA}/reportes`)
-    .then(res => {
-      setData(res.data)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  } ,[])
+      .then(res => {
+        setData(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }, [reload])
 
   return (
     <Table>
@@ -29,6 +34,7 @@ export function TableTransacciones() {
           <TableHead>Estado</TableHead>
           <TableHead>Valor</TableHead>
           <TableHead>Opciones</TableHead>
+          <TableHead>Fecha/Hora Actualización</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -38,7 +44,7 @@ export function TableTransacciones() {
             <TableCell>{item.FECHACREATE}</TableCell>
             <TableCell>{item.CONCEPTO}</TableCell>
             <TableCell>
-            <Badge variant={
+              <Badge variant={
                 item.ESTADO === 'APROBADO'
                   ? 'success'
                   : item.ESTADO === 'RECHAZADO'
@@ -49,17 +55,18 @@ export function TableTransacciones() {
               </Badge>
             </TableCell>
             <TableCell>
-              <Badge variant='default'> 
+              <Badge variant='default'>
                 {`$ ${Intl.NumberFormat('es-CO').format(item.VALOR)}`}
               </Badge>
             </TableCell>
             <TableCell>
               {
                 item.ESTADO === 'APROBADO' || item.ESTADO === 'RECHAZADO' ? null : (
-                  <DialogUpdateTransaccion idTrans={item.IDTRANSACCION} />
+                  <DialogUpdateTransaccion idTrans={item.IDTRANSACCION} funReload={handleReload} />
                 )
               }
             </TableCell>
+            <TableCell>{item.FECHAUPDATE}</TableCell>
           </TableRow>
         ))}
       </TableBody>
