@@ -2,12 +2,14 @@ import { DialogHeader, DialogTitle, DialogDescription, DialogContent } from '@/c
 import { ReporteTransaccion } from '@/types/ProcessTransaccion';
 import { URL_API_DATA } from '@/utils/constants';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/auth/AuthProvider';
 import { Card, CardContent } from './ui/card';
 import { useEffect, useState } from 'react';
 import { Textarea } from './ui/textarea';
 import { Badge } from './ui/badge';
 import { toast } from 'sonner';
 import axios from 'axios';
+import { Loading } from './ui/loading';
 
 interface PropsDialog {
   funClose: (openDialog: boolean) => void;
@@ -16,13 +18,40 @@ interface PropsDialog {
 }
 
 function LazyDialogContent({ funClose, funReload, idTrans }: PropsDialog) {
-  const [reporte, setReporte] = useState<ReporteTransaccion | null>(null)
-  const [loading, setLoading] = useState(false)
+  const [reporte, setReporte] = useState<ReporteTransaccion | null>(null);
+  const [loading, setLoading] = useState(false);
+  const { user } = useAuth();
 
   const [nota, setNota] = useState('')
 
-  const handleClickAprobar = () => {
+  const handleClickAprobar = (ev: React.FormEvent) => {
     // here logic to approve the transaction
+    ev.preventDefault()
+    setLoading(true)
+
+    if (!nota) {
+      toast.error('Por favor, completa el campo observación')
+      setLoading(false)
+      return
+    }
+
+    axios.put(`${URL_API_DATA}/aprobar`, { id: idTrans, nota: nota, auth: user?.document })
+      .then(res => {
+        console.log(res)
+        if(res.status === 200) {
+          toast.success('Transacción Aprobada Exitosamente')
+          funClose(false)
+          funReload()
+          setNota('')
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        toast.error('Error al aprobar la transacción', { description: 'Por favor, intenta de nuevo' })
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }
 
   const handleClickRechazar = (ev: React.FormEvent) => {
@@ -36,11 +65,11 @@ function LazyDialogContent({ funClose, funReload, idTrans }: PropsDialog) {
       return
     }
 
-    axios.put(`${URL_API_DATA}/rechazar`, { id: idTrans, nota: nota })
+    axios.put(`${URL_API_DATA}/rechazar`, { id: idTrans, nota: nota, auth: user?.document })
       .then(res => {
         console.log(res)
         if(res.status === 200) {
-          toast.success('Transacción rechazada exitosamente')
+          toast.success('Transacción Rechazada Exitosamente')
           funClose(false)
           funReload()
           setNota('')
@@ -55,7 +84,6 @@ function LazyDialogContent({ funClose, funReload, idTrans }: PropsDialog) {
       })
   }
 
-
   useEffect(() => {
     axios.get<ReporteTransaccion>(`${URL_API_DATA}/reporte/${idTrans}`)
       .then(res => {
@@ -67,7 +95,7 @@ function LazyDialogContent({ funClose, funReload, idTrans }: PropsDialog) {
   }, [idTrans])
 
   return (
-    <DialogContent className='w-[700px]'>
+    <DialogContent>
       <DialogHeader>
         <DialogTitle>Procesar Transacción</DialogTitle>
         <DialogDescription className='flex justify-between gap-2'>
@@ -146,6 +174,14 @@ function LazyDialogContent({ funClose, funReload, idTrans }: PropsDialog) {
           </form>
         </CardContent>
       </Card>
+
+      {
+        loading && (
+          <div className='absolute top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center z-50'>
+            <Loading />
+          </div>
+        )
+      }
     </DialogContent>
   )
 }

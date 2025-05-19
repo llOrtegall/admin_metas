@@ -17,6 +17,7 @@ class Transacciones extends Model<InferAttributes<Transacciones>, InferCreationA
   declare FECHAUPDATE?: Date;
   declare NOTA?: string;
   declare VERSION?: string;
+  declare Sucursale?: Sucursales;
 }
 
 Transacciones.init({
