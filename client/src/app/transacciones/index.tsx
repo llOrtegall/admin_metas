@@ -7,7 +7,7 @@ import { TableTransacciones } from "@/components/table-transacciones"
 export default function Transacciones() {
   const { user } = useAuth()
 
-  if (user?.sub_process !== "Gerente") {
+  if (user?.sub_process !== "Monitoreo") {
     return <Navigate to="/" replace />
   }
 

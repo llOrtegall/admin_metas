@@ -39,7 +39,7 @@ export function NavMain({ items }: {
           </NavLink>
         ))}
         {
-          user.sub_process === "Gerente" && (
+          user.sub_process === "Monitoreo" && (
             <NavLink to="/transacciones" className={({ isActive }) =>
               isActive ? "bg-muted text-foreground" : "text-muted-foreground"
             }>
