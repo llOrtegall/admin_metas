@@ -37,14 +37,28 @@ export function TableTransacciones() {
             <TableCell className="font-medium">{item.IDTRANSACCION}</TableCell>
             <TableCell>{item.FECHACREATE}</TableCell>
             <TableCell>{item.CONCEPTO}</TableCell>
-            <TableCell>{item.ESTADO}</TableCell>
+            <TableCell>
+            <Badge variant={
+                item.ESTADO === 'APROBADO'
+                  ? 'success'
+                  : item.ESTADO === 'RECHAZADO'
+                    ? 'destructive'
+                    : 'outline'
+              }>
+                {item.ESTADO}
+              </Badge>
+            </TableCell>
             <TableCell>
               <Badge variant='default'> 
                 {`$ ${Intl.NumberFormat('es-CO').format(item.VALOR)}`}
               </Badge>
             </TableCell>
             <TableCell>
-              <DialogUpdateTransaccion idTrans={item.IDTRANSACCION} />
+              {
+                item.ESTADO === 'APROBADO' || item.ESTADO === 'RECHAZADO' ? null : (
+                  <DialogUpdateTransaccion idTrans={item.IDTRANSACCION} />
+                )
+              }
             </TableCell>
           </TableRow>
         ))}

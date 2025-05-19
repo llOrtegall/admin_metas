@@ -65,3 +65,29 @@ export const getReportById = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Error al obtener el reporte' });
   }
 }
+
+export const updateDeniedReport = async (req: Request, res: Response) => {
+  const { id, nota } = req.body
+
+  if (!id || !nota) {
+    res.status(400).json({ error: 'Faltan datos para rechazar el reporte' });
+    return;
+  }
+
+  try {
+    const report = await Transacciones.update({
+      ESTADO: 'RECHAZADO',
+      NOTA: nota
+    }, {
+      where: {
+        IDTRANSACCION: id
+      }
+    })
+
+    res.status(200).json(report);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al actualizar el reporte' });
+  }
+}
+  
