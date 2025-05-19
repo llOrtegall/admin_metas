@@ -16,6 +16,7 @@
         "@types/express": "^5.0.2",
         "@types/morgan": "^1.9.9",
         "@types/node": "^22.15.19",
+        "@types/oracledb": "^6.6.0",
         "morgan": "^1.10.0",
         "tsx": "^4.19.4",
         "typescript": "^5.8.3",
@@ -94,6 +95,8 @@
     "@types/ms": ["@types/ms@2.1.0", "", {}, "sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA=="],
 
     "@types/node": ["@types/node@22.15.19", "", { "dependencies": { "undici-types": "~6.21.0" } }, "sha512-3vMNr4TzNQyjHcRZadojpRaD9Ofr6LsonZAoQ+HMUa/9ORTPoxVIw0e0mpqWpdjj8xybyCM+oKOUH2vwFu/oEw=="],
+
+    "@types/oracledb": ["@types/oracledb@6.6.0", "", { "dependencies": { "@types/node": "*" } }, "sha512-s0iUXICj/MWfZ85+i3m6b9bppyuBGFaUB/k5HJ4zeC/XYiWrZulp1m54oWrNIjoBAfLXvqQBGy6+md8mwKyyKA=="],
 
     "@types/qs": ["@types/qs@6.9.18", "", {}, "sha512-kK7dgTYDyGqS+e2Q4aK9X3D7q234CIZ1Bv0q/7Z5IwRDoADNU81xXJK/YVyLbLTZCoIwUoDoffFeF+p/eIklAA=="],
 
