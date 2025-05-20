@@ -17,20 +17,23 @@ pipeline {
         }
       }
 
-      stage('install dependencies frontend') {
+      stage('Install Dependencies client and server') {
         steps {
           dir('client') {
+            sh 'bun install'
+            sh 'bun run build'
+          }
+          dir('server') {
             sh 'bun install'
             sh 'bun run build'
           }
         }
       }
 
-      stage('build server') {
+      stage('copy folder instantClient to API'){
         steps {
-          dir('server') {
-            sh 'bun install'
-            sh 'bun run build'
+          script {
+            sh 'cp -r /var/lib/jenkins/instantclient_11_2 ./server'
           }
         }
       }

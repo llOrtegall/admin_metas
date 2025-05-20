@@ -5,6 +5,6 @@ export const PowerBI = new Sequelize(DB_POWERBI_DATABASE, DB_POWERBI_USER, DB_PO
   host: DB_POWERBI_HOST,
   port: DB_POWERBI_PORT,
   dialect: 'mysql',
-  timezone: '-00:00',
+  timezone: '-05:00',
   logging: ENVIRONMENT === 'development' ? console.log : false,
 });

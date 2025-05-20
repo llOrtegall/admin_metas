@@ -1,8 +1,23 @@
-FROM node:lts-slim
+FROM node:lts
 
 WORKDIR /app
 
-COPY . .
+COPY . /app
+
+# Instalar dependencias necesarias
+RUN apt-get update && apt-get install -y libaio1
+
+# Configurar Oracle Instant Client
+RUN mkdir -p /opt/oracle && \
+    mv /app/instantclient_11_2 /opt/oracle && \
+    cd /opt/oracle/instantclient_11_2 && \
+    ln -s libclntsh.so.11.1 libclntsh.so && \
+    ln -s libocci.so.11.1 libocci.so && \
+    echo "/opt/oracle/instantclient_11_2" > /etc/ld.so.conf.d/oracle-instantclient.conf && \
+    ldconfig
+
+# Agregar Oracle Instant Client al PATH del sistema
+RUN echo "export LD_LIBRARY_PATH=/opt/oracle/instantclient_11_2:\$LD_LIBRARY_PATH" >> /etc/profile.d/oracle-instantclient.sh
 
 EXPOSE 80
 
