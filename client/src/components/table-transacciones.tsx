@@ -17,6 +17,7 @@ export function TableTransacciones() {
   const [reload, setReload] = useState(false)
 
   const handleReload = () => {
+    setLastUpdate(new Date().toLocaleString())
     setReload(!reload)
   }
 
