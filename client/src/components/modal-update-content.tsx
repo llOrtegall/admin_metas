@@ -27,6 +27,9 @@ function LazyDialogContent({ funClose, funReload, idTrans }: PropsDialog) {
   const handleClickAprobar = (ev: React.FormEvent) => {
     // here logic to approve the transaction
     ev.preventDefault()
+    if (!window.confirm('¿Estás seguro de aprobar esta transacción?')) {
+      return;
+    }
     setLoading(true)
 
     if (!nota) {
@@ -38,7 +41,7 @@ function LazyDialogContent({ funClose, funReload, idTrans }: PropsDialog) {
     axios.put(`${URL_API_DATA}/aprobar`, { id: idTrans, nota: nota, auth: user?.document })
       .then(res => {
         console.log(res)
-        if(res.status === 200) {
+        if (res.status === 200) {
           toast.success('Transacción Aprobada Exitosamente')
           funClose(false)
           funReload()
@@ -57,6 +60,9 @@ function LazyDialogContent({ funClose, funReload, idTrans }: PropsDialog) {
   const handleClickRechazar = (ev: React.FormEvent) => {
     // here logic to reject the transaction
     ev.preventDefault()
+    if (!window.confirm('¿Estás seguro de rechazar esta transacción?')) {
+      return;
+    }
     setLoading(true)
 
     if (!nota) {
@@ -68,7 +74,7 @@ function LazyDialogContent({ funClose, funReload, idTrans }: PropsDialog) {
     axios.put(`${URL_API_DATA}/rechazar`, { id: idTrans, nota: nota, auth: user?.document })
       .then(res => {
         console.log(res)
-        if(res.status === 200) {
+        if (res.status === 200) {
           toast.success('Transacción Rechazada Exitosamente')
           funClose(false)
           funReload()
@@ -157,7 +163,7 @@ function LazyDialogContent({ funClose, funReload, idTrans }: PropsDialog) {
             </article>
             <div className='flex justify-between gap-2'>
               <Button
-                onClick={(ev) => handleClickRechazar(ev)}
+                onClick={handleClickRechazar}
                 disabled={loading}
                 type='submit'
                 variant='destructive'>
