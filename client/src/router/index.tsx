@@ -1,13 +1,14 @@
 import { createBrowserRouter } from 'react-router';
+import { Loading } from '@/components/ui/loading';
+import { lazy, Suspense } from 'react';
 import { Root } from '@/router/Root';
 
-// Pages
-import LogueadosPage from '@/app/logueados';
-import SugeridosPage from '@/app/sugeridos';
-import SucursalesPage from '@/app/sucursales';
-import InfoSucursal from '@/app/sucursales/info-sucursal';
-import Transacciones from '@/app/transacciones';
-import Dashboard from '@/app/dashboard';
+const Dashboard = lazy(() => import('@/app/dashboard'));
+const LogueadosPage = lazy(() => import('@/app/logueados'));
+const SugeridosPage = lazy(() => import('@/app/sugeridos'));
+const SucursalesPage = lazy(() => import('@/app/sucursales'));
+const InfoSucursal = lazy(() => import('@/app/sucursales/info-sucursal'));
+const Transacciones = lazy(() => import('@/app/transacciones'));
 
 export const router = createBrowserRouter([
   {
@@ -16,27 +17,51 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Dashboard />
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Dashboard />
+          </Suspense>
+        )
       },
       {
         path: '/logueados',
-        element: <LogueadosPage />
+        element: (
+          <Suspense fallback={<Loading />}>
+            <LogueadosPage />
+          </Suspense>
+        )
       },
       {
         path: '/sugeridos',
-        element: <SugeridosPage />
+        element: (
+          <Suspense fallback={<Loading />}>
+            <SugeridosPage />
+          </Suspense>
+        )
       },
       {
         path: '/sucursales',
-        element: <SucursalesPage />
+        element: (
+          <Suspense fallback={<Loading />}>
+            <SucursalesPage />
+          </Suspense>
+        )
       },
       {
         path: '/sucursales/:id',
-        element: <InfoSucursal />
+        element: (
+          <Suspense fallback={<Loading />}>
+            <InfoSucursal />
+          </Suspense>
+        )
       },
       {
         path: '/transacciones',
-        element: <Transacciones />
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Transacciones />
+          </Suspense>
+        )
       }
     ]
   }

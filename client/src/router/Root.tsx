@@ -1,11 +1,22 @@
+import { Loading } from '@/components/ui/loading';
 import { useAuth } from '@/auth/AuthProvider';
-import LoginPage from '@/app/login';
-import Layout from '@/app';
+import { lazy, Suspense } from 'react';
+
+const LoginPage = lazy(() => import('@/app/login'));
+const Layout = lazy(() => import('@/app'));
 
 export function Root() {
   const { user } = useAuth();
 
-  if (!user) return <LoginPage />
+  if (!user) return (
+    <Suspense fallback={<Loading />}>
+      <LoginPage />
+    </Suspense>
+  )
   
-  return <Layout />
+  return (
+    <Suspense fallback={<Loading />}>
+      <Layout />
+    </Suspense>
+  )
 }
