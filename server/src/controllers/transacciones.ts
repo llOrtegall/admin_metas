@@ -134,7 +134,7 @@ export const updateApprovedReport = async (req: Request, res: Response) => {
     const zona = Sucursale?.ZONA
 
     const sql = `INSERT INTO AUTORIZACIONESPDV (FECHA, TERCERO, VALOR, ID, LOGINUSR, LOGINAUTH, FECHASYS, SUCURSAL, ZONA)
-    VALUES (SYSDATE, :tercero, :valor, :id, :loginusr, :loginauth, SYSDATE, :sucursal, :zona)`
+    VALUES (TRUNC(SYSDATE), :tercero, :valor, :id, :loginusr, :loginauth, SYSDATE, :sucursal, :zona)`
 
     const result = await connection.execute(sql, {
       tercero: TERCERO,
