@@ -32,8 +32,10 @@ export default function SugeridosPage() {
 
   const {
     filteredData,
-    date,
-    setDate,
+    date1,
+    date2,
+    setDate1,
+    setDate2,
     filter,
     setFilter,
     setCategory,
@@ -49,13 +51,22 @@ export default function SugeridosPage() {
         <h1 className='text-lg font-bold uppercase'>Sugeridos Vendedores</h1>
 
         <article className='flex items-center gap-4'>
-          <Label className='text-sm font-bold'>Fecha</Label>
+          <Label className='text-sm font-bold'>Fecha Inicial</Label>
           <Input
             type='date'
             className='w-[150px]'
             placeholder='Fecha'
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
+            value={date1}
+            onChange={(e) => setDate1(e.target.value)}
+          />
+
+          <Label className='text-sm font-bold'>Fecha Final</Label>
+          <Input
+            type='date'
+            className='w-[150px]'
+            placeholder='Fecha 2'
+            value={date2}
+            onChange={(e) => setDate2(e.target.value)}
           />
 
           <Label className='text-sm font-bold flex items-center gap-2' title='Se puede buscar por N° Sucursal, Documento o Nombres colocador'>
