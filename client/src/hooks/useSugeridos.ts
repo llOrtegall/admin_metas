@@ -5,7 +5,8 @@ import axios from 'axios';
 
 export function useSugeridos(initialEmpresa: string = 'Multired') {
   const [data, setData] = useState<Sugeridos[]>([]);
-  const [date, setDate] = useState<string>('');
+  const [date1, setDate1] = useState<string>('');
+  const [date2, setDate2] = useState<string>('');
   const [filter, setFilter] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const [filterEstado, setFilterEstado] = useState<string>('');
@@ -24,7 +25,7 @@ export function useSugeridos(initialEmpresa: string = 'Multired') {
       setError(null);
       try {
         const response = await axios.get(`${URL_API_DATA}/sugeridos`, {
-          params: { fecha: date, empresa: initialEmpresa },
+          params: { fecha1: date1, fecha2: date2, empresa: initialEmpresa },
         });
         setData(response.data);
       } catch (err) {
@@ -35,7 +36,7 @@ export function useSugeridos(initialEmpresa: string = 'Multired') {
       }
     };
     fetchData();
-  }, [date, initialEmpresa]);
+  }, [date1, date2, initialEmpresa]);
 
   // Optimización del filtrado
   const filteredData = useMemo(() => {
@@ -67,8 +68,10 @@ export function useSugeridos(initialEmpresa: string = 'Multired') {
   return {
     data,
     filteredData,
-    date,
-    setDate,
+    date1,
+    setDate1,
+    date2,
+    setDate2,
     filter,
     setFilter,
     category,
