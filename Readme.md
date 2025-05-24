@@ -29,28 +29,32 @@ Ambos reportes deben incluir:
 - [ ] **Paso 7:** Testing y validación --- Optional
 
 ### 2. Reporte de Sugeridos
-**Progreso: [🟡] 1/7 pasos completados**
+**Progreso: [🟡] 6/7 pasos completados**
 
 - [✅] **Paso 1:** Analizar estructura de datos de premios Sugeridos
     - **Subtarea:** Revisar cómo se almacenan los datos en la base de datos ✅
     - **Subtarea:** Identificar campos relevantes para el reporte Sugeridos ✅
     - **Subtarea:** Definir qué información se mostrará en el reporte Sugeridos ✅
-- [ ] **Paso 2:** Crear endpoint API para obtener datos del reporte
-- [ ] **Paso 3:** Implementar filtros por rango de fechas
-- [ ] **Paso 4:** Agregar filtros dinámicos específicos para sugeridos
-- [ ] **Paso 5:** Crear componente frontend para el reporte
-- [ ] **Paso 6:** Integrar filtros en la interfaz
-- [ ] **Paso 7:** Testing y validación --- Optional
+- [✅] **Paso 2:** Crear endpoint API para obtener datos del reporte - Ya existe se moficó
+    - **Subtarea:** Revisar endpoints existentes y reutilizar si es posible ✅
+    - **Subtarea:** Agregar otro parametro de fecha para el reporte Sugeridos ✅
+    - **Subtarea:** Asegurar que el endpoint retorne datos filtrados por fecha ✅
+- [✅] **Paso 3:** Implementar filtros por rango de fechas
+    - **Subtarea:** Crear lógica para filtrar datos por rango de fechas en el backend ✅
+    - **Subtarea:** Asegurar que los filtros funcionen correctamente en el frontend ✅
+- [✅] **Paso 4:** Agregar filtros dinámicos específicos para sugeridos
+- [✅] **Paso 5:** Crear componente frontend para el reporte
+- [✅] **Paso 6:** Integrar filtros en la interfaz
+- [🟡] **Paso 7:** Testing y validación --- Optional
 
 
 ## 📈 Medición de Progreso
-
-### Progreso General: 14% (2 / 14 tareas creadas)
+### Progreso General: 50% (7 / 14 tareas completadas)
 
 | Componente | Progreso | Estado |
 |------------|----------|--------|
 | Reporte Premios Autorizados | 1/7 | 🟡 En progreso |
-| Reporte Sugeridos | 1/7 | 🟡 En progreso |
+| Reporte Sugeridos | 6/7 | 🟡 En progreso |
 
 ### Estados de Progreso:
 - 🔴 **No iniciado** (0%)
