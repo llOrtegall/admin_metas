@@ -13,7 +13,7 @@ export const getSugeridos = async (req: Request, res: Response) => {
   }
 
   try {
-    const sugeridos = await getSugeridosQuery(data.fecha, data.empresa);
+    const sugeridos = await getSugeridosQuery(data.fecha1, data.fecha2, data.empresa);
     res.status(200).json(sugeridos);
   } catch (error) {
     console.error('Error fetching sugeridos:', error);

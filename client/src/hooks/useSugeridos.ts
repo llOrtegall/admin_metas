@@ -14,6 +14,8 @@ export function useSugeridos(initialEmpresa: string = 'Multired') {
   const [error, setError] = useState<string | null>(null);
 
   const resetFilters = () => {
+    setDate1('');
+    setDate2('');
     setFilter('');
     setCategory('');
     setFilterEstado('');

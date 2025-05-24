@@ -1,7 +1,19 @@
 import { Sugeridos } from '../models/sugeridos.model';
 import { QueryTypes } from 'sequelize';
 
-export const getSugeridosQuery = async (fecha: string, empresa: string): Promise<Sugeridos[]> => {
+const datesInsert = (fecha1: string, fecha2: string): string => {
+  if (fecha1 && fecha2 && fecha1 !== '' && fecha2 !== '') {
+    return `SV.FECHA BETWEEN '${fecha1}' AND '${fecha2}'`;
+  } else if (fecha1 && fecha1 !== '') {
+    return `SV.FECHA = '${fecha1}'`;
+  }
+  return `SV.FECHA = CURDATE()`;
+}
+
+export const getSugeridosQuery = async (fecha1: string, fecha2: string, empresa: string): Promise<Sugeridos[]> => {
+ console.log("Fecha en el servicio: ", fecha1,  + " | " + fecha2,  + " | " + empresa);
+ 
+
   try {
      const company = empresa === 'Multired' ? 39627 : 39628;
 
@@ -25,18 +37,13 @@ export const getSugeridosQuery = async (fecha: string, empresa: string): Promise
         ON SUBSTRING(SV.LOGIN, 3) = V.DOCUMENTO
       JOIN SUCURSALES AS S
         ON SV.SUCURSAL = S.CODIGO
-      WHERE SV.FECHA = COALESCE(:fecha, CURDATE()) 
+      WHERE ${datesInsert(fecha1, fecha2)}
       AND SV.ZONA = :zona
       ORDER BY SV.VTA_SUGERIDO DESC, SV.SUCURSAL ASC
 
     `
-
-    // Validar el valor de "fecha"
-    const date = fecha && fecha.trim() ? [fecha] : [null];
-
     const results = await Sugeridos.sequelize?.query(strQuery, {
       replacements: {
-        fecha: date,
         zona: company
       },
       type: QueryTypes.SELECT,

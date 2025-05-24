@@ -27,9 +27,7 @@ const RenderEstadoComponent = ({ estado }: { estado: string }) => {
 
 export default function SugeridosPage() {
   const { empresa } = useAuth()
-
-  console.log(empresa)
-
+  
   const {
     filteredData,
     date1,
@@ -55,7 +53,6 @@ export default function SugeridosPage() {
           <Input
             type='date'
             className='w-[150px]'
-            placeholder='Fecha'
             value={date1}
             onChange={(e) => setDate1(e.target.value)}
           />
@@ -64,7 +61,6 @@ export default function SugeridosPage() {
           <Input
             type='date'
             className='w-[150px]'
-            placeholder='Fecha 2'
             value={date2}
             onChange={(e) => setDate2(e.target.value)}
           />
