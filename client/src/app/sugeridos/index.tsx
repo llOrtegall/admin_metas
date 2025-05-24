@@ -27,7 +27,7 @@ const RenderEstadoComponent = ({ estado }: { estado: string }) => {
 
 export default function SugeridosPage() {
   const { empresa } = useAuth()
-  
+
   const {
     filteredData,
     date1,
@@ -45,7 +45,7 @@ export default function SugeridosPage() {
 
   return (
     <section>
-      <Card className='px-4'>
+      <Card className='pl-4'>
         <h1 className='text-lg font-bold uppercase'>Sugeridos Vendedores</h1>
 
         <article className='flex items-center gap-4'>
@@ -77,6 +77,15 @@ export default function SugeridosPage() {
             onChange={(e) => setFilter(e.target.value)}
           />
 
+          <Button onClick={resetFilters} className='ml-2'>
+            Resetear Filtros
+          </Button>
+
+          <ButtonExportSugeridos datos={filteredData} />
+
+        </article>
+
+        <article className='flex items-center gap-4'>
           <Label className='text-sm font-bold'>Categoría</Label>
 
           <Select onValueChange={(val) => setCategory(val)} defaultValue='TODAS'>
@@ -111,11 +120,8 @@ export default function SugeridosPage() {
             </SelectContent>
           </Select>
 
-          <Button onClick={resetFilters} className='ml-2'>
-            Resetear Filtros
-          </Button>
-
-          <ButtonExportSugeridos datos={filteredData} />
+          <Label className='text-sm font-bold'>Cantidad Datos Mostrados:</Label>
+          <span className='text-sm font-bold border px-4 py-0.5 rounded-md bg-yellow-200'>{filteredData ? filteredData.length : 0}</span>
         </article>
 
         <section>
